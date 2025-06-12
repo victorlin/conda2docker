@@ -1,6 +1,6 @@
-# github-actions-docker-build
+# conda2docker
 
-Automatically build a Docker image on GitHub Actions, hosted on GitHub Container Registry
+Build and publish a Docker image from a Conda environment YAML file
 
 ## 1. Setup
 
@@ -8,21 +8,21 @@ Fork this repository, or add all its contents into an existing repository. You
 will need a GitHub account to continue.
 
 
-## 2. Customize the image
+## 2. Customize the environment
 
-The [Dockerfile] defines the Docker image. Refer to [Docker Docs] for examples
+[env.yaml] defines the Conda environment. Refer to [Conda docs] for examples
 on how to make changes to this file.
 
-Once the Dockerfile has been updated on GitHub, it will automatically trigger a
-build of the image on GitHub Container Registry as an image tagged with the
-repository's name and owner.
+Any changes to `env.yaml` will automatically trigger a build of the image on
+GitHub Container Registry as an image tagged with the repository's name and
+owner.
 
 > [!NOTE]
 > The first push in a repository may fail due to lack of GitHub permissions on a
 > package that hasn't been created yet. Subsequent pushes should succeed.
 
-[Dockerfile]: ./Dockerfile
-[Docker Docs]: https://docs.docker.com/build/building/packaging/
+[env.yaml]: ./env.yaml
+[Conda docs]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually
 
 ## 3. Customize the automatic build
 
@@ -31,7 +31,7 @@ repository's name and owner.
 The automatic build is defined in [docker.yml], a GitHub Actions workflow. By
 default, it is set to run:
 
-1. on pushes to the `main` branch that change certain files
+1. on pushes to any branch that change certain files
 2. on manual invocation from the workflow webpage (repository > Actions > docker)
 
 You can tweak this to use other [workflow triggers].
